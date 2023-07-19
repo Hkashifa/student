@@ -3,6 +3,7 @@ package com.example.student.Controller;
 import com.example.student.DTO.StudentDTO;
 import com.example.student.Entity.StudentEntity;
 import com.example.student.Service.StudentService;
+import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class StudentController {
     }
 
     @GetMapping("/{Id}")
-    public ResponseEntity<StudentDTO> getSingleStudent(@PathVariable String Id)
+    public ResponseEntity<StudentDTO> getSingleStudent(@PathVariable ObjectId Id)
     {
          StudentDTO studentDTO = studentService.getSingleStudent(Id);
          return ResponseEntity.ok().body(studentDTO);
@@ -41,8 +42,8 @@ public class StudentController {
 
     }
 
-    @PutMapping("update/{id}")
-    public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO student,@PathVariable String Id)
+    @PutMapping("update/{Id}")
+    public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO student,@PathVariable(name="Id") ObjectId Id)
     {
         StudentDTO studentResponse = studentService.updateStudent(student,Id);
         return ResponseEntity.ok().body(studentResponse);

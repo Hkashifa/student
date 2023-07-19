@@ -11,9 +11,7 @@ import lombok.ToString;
 
 public abstract class BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String Id;
+
     private String createdBy;
     private String createdAt;
     private String updatedBy;

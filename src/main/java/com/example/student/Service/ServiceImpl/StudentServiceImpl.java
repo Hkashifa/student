@@ -4,6 +4,7 @@ import com.example.student.DTO.StudentDTO;
 import com.example.student.Entity.StudentEntity;
 import com.example.student.Repository.StudentRepository;
 import com.example.student.Service.StudentService;
+import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -33,53 +34,57 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO getSingleStudent(String Id) {
-        Optional<StudentEntity> studentEntity =  studentRepo.findById(Id);
+    public StudentDTO getSingleStudent(ObjectId Id) {
+        Optional<StudentEntity> studentEntity = studentRepo.findById(Id);
 
-        StudentDTO studentDTO = modelMap.map(studentEntity,StudentDTO.class);
+        StudentDTO studentDTO = modelMap.map(studentEntity, StudentDTO.class);
         return studentDTO;
     }
 
     @Override
     public StudentDTO addNewStudent(@RequestBody StudentDTO studentEntity) {
 
-        StudentEntity savedStudent = modelMap.map(studentEntity,StudentEntity.class);
+        StudentEntity savedStudent = modelMap.map(studentEntity, StudentEntity.class);
         studentRepo.save(savedStudent);
-        StudentDTO returnedStudent = modelMap.map(savedStudent,StudentDTO.class);
+        StudentDTO returnedStudent = modelMap.map(savedStudent, StudentDTO.class);
         return returnedStudent;
 
     }
 
     @Override
-    public StudentDTO updateStudent(StudentDTO student,String Id) {
+    public StudentDTO updateStudent(StudentDTO student, String Id) {
 
-        StudentEntity updatedStudent = modelMap.map(student,StudentEntity.class);
+        StudentEntity updatedStudent = modelMap.map(student, StudentEntity.class);
         Optional<StudentEntity> oldStudentOptional = studentRepo.findById(Id);
 
         if (oldStudentOptional.isPresent()) {
             StudentEntity oldStudent = oldStudentOptional.get();
-            oldStudent.setFirstName(updatedStudent.getFirstName());
-            oldStudent.setLastName(updatedStudent.getLastName());
-            oldStudent.setContactNumber(updatedStudent.getContactNumber());
-            oldStudent.setEmail(updatedStudent.getEmail());
-
+            if (updatedStudent.getFirstName() != null) {
+                oldStudent.setFirstName(updatedStudent.getFirstName());
+            }
+            if (updatedStudent.getFirstName() != null) {
+                oldStudent.setLastName(updatedStudent.getLastName());
+            }
+            if (updatedStudent.getFirstName() != null) {
+                oldStudent.setContactNumber(updatedStudent.getContactNumber());
+            }
+            if (updatedStudent.getFirstName() != null) {
+                oldStudent.setEmail(updatedStudent.getEmail());
+            }
             studentRepo.save(oldStudent);
-            StudentDTO studentResponse = modelMap.map(oldStudent,StudentDTO.class);
+            StudentDTO studentResponse = modelMap.map(oldStudent, StudentDTO.class);
             return studentResponse;
 
 
-        }
-        else
-        {
+        } else {
             throw new IllegalArgumentException("Student not found with ID: " + Id);
         }
     }
+
     @Override
     public void deleteStudent(String firstName) {
 
         studentRepo.deleteStudentEntityByFirstName(firstName);
-
-
 
     }
 }
