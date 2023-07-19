@@ -2,8 +2,13 @@ package com.example.student.Repository;
 
 import com.example.student.Entity.StudentEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-public interface StudentRepository extends MongoRepository<StudentEntity,Integer> {
+import java.util.Optional;
 
-   public StudentEntity findById();
+@Repository
+public interface StudentRepository extends MongoRepository<StudentEntity,String> {
+
+
+
 }

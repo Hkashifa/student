@@ -7,8 +7,10 @@ import com.example.student.Service.StudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -31,28 +33,51 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO getSingleStudent(Integer id) {
+    public StudentDTO getSingleStudent(String id) {
         Optional<StudentEntity> studentEntity =  studentRepo.findById(id);
+
         StudentDTO studentDTO = modelMap.map(studentEntity,StudentDTO.class);
         return studentDTO;
     }
 
     @Override
-    public StudentDTO addNewStudent(StudentDTO studentEntity) {
+    public StudentDTO addNewStudent(@RequestBody StudentDTO studentEntity) {
 
         StudentEntity savedStudent = modelMap.map(studentEntity,StudentEntity.class);
         studentRepo.save(savedStudent);
-        return studentEntity;
+        StudentDTO returnedStudent = modelMap.map(savedStudent,StudentDTO.class);
+        return returnedStudent;
 
     }
 
     @Override
-    public StudentDTO updateStudent(StudentDTO student,Integer id) {
-        return null;
-    }
+    public StudentDTO updateStudent(StudentDTO student,String id) {
 
+        StudentEntity updatedStudent = modelMap.map(student,StudentEntity.class);
+        Optional<StudentEntity> oldStudentOptional = studentRepo.findById(id);
+
+        if (oldStudentOptional.isPresent()) {
+            StudentEntity oldStudent = oldStudentOptional.get();
+            oldStudent.setFirstName(updatedStudent.getFirstName());
+            oldStudent.setLastName(updatedStudent.getLastName());
+            oldStudent.setContactNumber(updatedStudent.getContactNumber());
+            oldStudent.setEmail(updatedStudent.getEmail());
+            studentRepo.save(oldStudent);
+            StudentDTO studentResponse = modelMap.map(oldStudent,StudentDTO.class);
+            return studentResponse;
+
+
+        }
+        else
+        {
+            throw new IllegalArgumentException("Student not found with ID: " + id);
+        }
+    }
     @Override
-    public void deleteStudent(Integer id) {
+    public void deleteStudent(String id) {
+
+
+        studentRepo.deleteById(id);
 
     }
 }
