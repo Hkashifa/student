@@ -1,6 +1,7 @@
 package com.example.student.Controller;
 
 import com.example.student.DTO.StudentDTO;
+import com.example.student.Entity.StudentEntity;
 import com.example.student.Service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +26,10 @@ public class StudentController {
 
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<StudentDTO> getSingleStudent(@PathVariable String id)
+    @GetMapping("/{Id}")
+    public ResponseEntity<StudentDTO> getSingleStudent(@PathVariable String Id)
     {
-         StudentDTO studentDTO = studentService.getSingleStudent(id);
+         StudentDTO studentDTO = studentService.getSingleStudent(Id);
          return ResponseEntity.ok().body(studentDTO);
     }
 
@@ -41,18 +42,18 @@ public class StudentController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO student,@PathVariable String id)
+    public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO student,@PathVariable String Id)
     {
-        StudentDTO studentResponse = studentService.updateStudent(student,id);
+        StudentDTO studentResponse = studentService.updateStudent(student,Id);
         return ResponseEntity.ok().body(studentResponse);
 
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("delete/{firstName}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteStudent(@PathVariable String id)
+    public void deleteStudent(@PathVariable (name = "firstName") String firstName)
     {
-        studentService.deleteStudent(id);
+        studentService.deleteStudent(firstName);
 
 
     }

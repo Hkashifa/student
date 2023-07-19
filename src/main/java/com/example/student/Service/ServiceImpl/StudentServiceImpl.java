@@ -33,8 +33,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO getSingleStudent(String id) {
-        Optional<StudentEntity> studentEntity =  studentRepo.findById(id);
+    public StudentDTO getSingleStudent(String Id) {
+        Optional<StudentEntity> studentEntity =  studentRepo.findById(Id);
 
         StudentDTO studentDTO = modelMap.map(studentEntity,StudentDTO.class);
         return studentDTO;
@@ -51,10 +51,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO updateStudent(StudentDTO student,String id) {
+    public StudentDTO updateStudent(StudentDTO student,String Id) {
 
         StudentEntity updatedStudent = modelMap.map(student,StudentEntity.class);
-        Optional<StudentEntity> oldStudentOptional = studentRepo.findById(id);
+        Optional<StudentEntity> oldStudentOptional = studentRepo.findById(Id);
 
         if (oldStudentOptional.isPresent()) {
             StudentEntity oldStudent = oldStudentOptional.get();
@@ -62,6 +62,7 @@ public class StudentServiceImpl implements StudentService {
             oldStudent.setLastName(updatedStudent.getLastName());
             oldStudent.setContactNumber(updatedStudent.getContactNumber());
             oldStudent.setEmail(updatedStudent.getEmail());
+
             studentRepo.save(oldStudent);
             StudentDTO studentResponse = modelMap.map(oldStudent,StudentDTO.class);
             return studentResponse;
@@ -70,14 +71,15 @@ public class StudentServiceImpl implements StudentService {
         }
         else
         {
-            throw new IllegalArgumentException("Student not found with ID: " + id);
+            throw new IllegalArgumentException("Student not found with ID: " + Id);
         }
     }
     @Override
-    public void deleteStudent(String id) {
+    public void deleteStudent(String firstName) {
+
+        studentRepo.deleteStudentEntityByFirstName(firstName);
 
 
-        studentRepo.deleteById(id);
 
     }
 }

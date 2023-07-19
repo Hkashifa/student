@@ -16,9 +16,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 public class StudentEntity extends BaseEntity {
 
-    @Id
-    @Indexed(unique = true)
-    private Integer Id;
 
     private String firstName;
     private String lastName;
