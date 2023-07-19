@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 public class StudentDTO extends BaseDTO{
 
 
-    private Integer Id;
+    private String Id;
     private String firstName;
     private String lastName;
     private String contactNumber;
