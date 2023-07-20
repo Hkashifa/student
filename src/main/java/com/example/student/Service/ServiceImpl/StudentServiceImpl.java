@@ -8,6 +8,7 @@ import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -34,9 +35,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO getSingleStudent(ObjectId Id) {
+    public StudentDTO getSingleStudent(String Id) {
         Optional<StudentEntity> studentEntity = studentRepo.findById(Id);
-
         StudentDTO studentDTO = modelMap.map(studentEntity, StudentDTO.class);
         return studentDTO;
     }
@@ -59,18 +59,13 @@ public class StudentServiceImpl implements StudentService {
 
         if (oldStudentOptional.isPresent()) {
             StudentEntity oldStudent = oldStudentOptional.get();
-            if (updatedStudent.getFirstName() != null) {
+
                 oldStudent.setFirstName(updatedStudent.getFirstName());
-            }
-            if (updatedStudent.getFirstName() != null) {
                 oldStudent.setLastName(updatedStudent.getLastName());
-            }
-            if (updatedStudent.getFirstName() != null) {
                 oldStudent.setContactNumber(updatedStudent.getContactNumber());
-            }
-            if (updatedStudent.getFirstName() != null) {
+
                 oldStudent.setEmail(updatedStudent.getEmail());
-            }
+
             studentRepo.save(oldStudent);
             StudentDTO studentResponse = modelMap.map(oldStudent, StudentDTO.class);
             return studentResponse;
@@ -87,4 +82,14 @@ public class StudentServiceImpl implements StudentService {
         studentRepo.deleteStudentEntityByFirstName(firstName);
 
     }
+
+    @Override
+    public void deleteStudentById(String id) {
+
+    studentRepo.deleteStudentEntityById(id);
+
+
+    }
+
+
 }

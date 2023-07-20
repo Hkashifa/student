@@ -15,11 +15,13 @@ import java.util.List;
 public interface StudentService {
 
     List<StudentDTO> getAllStudent();
-    StudentDTO getSingleStudent(@PathVariable ObjectId Id);
+    StudentDTO getSingleStudent(@PathVariable String Id);
     StudentDTO addNewStudent(@RequestBody StudentDTO student);
-    StudentDTO updateStudent(@RequestBody  StudentDTO student,@PathVariable ObjectId Id);
+    StudentDTO updateStudent(@RequestBody  StudentDTO student,@PathVariable String Id);
 
     void deleteStudent(@PathVariable String name);
+
+    void deleteStudentById(@PathVariable String id);
 
 
 

@@ -28,7 +28,7 @@ public class StudentController {
     }
 
     @GetMapping("/{Id}")
-    public ResponseEntity<StudentDTO> getSingleStudent(@PathVariable ObjectId Id)
+    public ResponseEntity<StudentDTO> getSingleStudent(@PathVariable String Id)
     {
          StudentDTO studentDTO = studentService.getSingleStudent(Id);
          return ResponseEntity.ok().body(studentDTO);
@@ -43,7 +43,7 @@ public class StudentController {
     }
 
     @PutMapping("update/{Id}")
-    public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO student,@PathVariable(name="Id") ObjectId Id)
+    public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO student,@PathVariable(name="Id") String Id)
     {
         StudentDTO studentResponse = studentService.updateStudent(student,Id);
         return ResponseEntity.ok().body(studentResponse);
@@ -56,7 +56,14 @@ public class StudentController {
     {
         studentService.deleteStudent(firstName);
 
+    }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteStudentById(@PathVariable (name = "id") String id)
+    {
+        studentService.deleteStudentById(id);
 
     }
+
 
 }

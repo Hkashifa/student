@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 @AllArgsConstructor//remove this and see what happens
 public class StudentDTO extends BaseDTO{
 
-
+    @Id
     private String Id;
     private String firstName;
     private String lastName;
