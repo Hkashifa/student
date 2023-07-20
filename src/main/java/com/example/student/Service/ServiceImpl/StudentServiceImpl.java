@@ -52,18 +52,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO updateStudent(StudentDTO student, String Id) {
+    public StudentDTO updateStudent(StudentDTO student, String id) {
 
         StudentEntity updatedStudent = modelMap.map(student, StudentEntity.class);
-        Optional<StudentEntity> oldStudentOptional = studentRepo.findById(Id);
+        Optional<StudentEntity> oldStudentOptional = studentRepo.findById(id);
 
         if (oldStudentOptional.isPresent()) {
             StudentEntity oldStudent = oldStudentOptional.get();
-
                 oldStudent.setFirstName(updatedStudent.getFirstName());
                 oldStudent.setLastName(updatedStudent.getLastName());
                 oldStudent.setContactNumber(updatedStudent.getContactNumber());
-
                 oldStudent.setEmail(updatedStudent.getEmail());
 
             studentRepo.save(oldStudent);
@@ -72,7 +70,7 @@ public class StudentServiceImpl implements StudentService {
 
 
         } else {
-            throw new IllegalArgumentException("Student not found with ID: " + Id);
+            throw new IllegalArgumentException("Student not found with ID: " + id);
         }
     }
 

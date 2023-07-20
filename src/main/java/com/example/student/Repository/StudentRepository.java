@@ -12,4 +12,6 @@ public interface StudentRepository extends MongoRepository<StudentEntity,String>
     StudentEntity deleteStudentEntityById(String id);
 
 
+
+
 }

@@ -17,7 +17,7 @@ public interface StudentService {
     List<StudentDTO> getAllStudent();
     StudentDTO getSingleStudent(@PathVariable String Id);
     StudentDTO addNewStudent(@RequestBody StudentDTO student);
-    StudentDTO updateStudent(@RequestBody  StudentDTO student,@PathVariable String Id);
+    StudentDTO updateStudent(@RequestBody  StudentDTO student,@PathVariable String id);
 
     void deleteStudent(@PathVariable String name);
 
