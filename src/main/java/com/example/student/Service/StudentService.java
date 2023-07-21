@@ -25,5 +25,6 @@ public interface StudentService {
 
     List <StudentDTO> SearchBy(String firstName,String department,String gender);
 
-
+//
+//    double averageCgpa();
 }

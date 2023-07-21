@@ -3,6 +3,7 @@ package com.example.student.Repository;
 import com.example.student.Entity.StudentEntity;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
@@ -24,5 +25,7 @@ public interface StudentRepository extends MongoRepository<StudentEntity,String>
 
     List<StudentEntity> findStudentEntitiesByFirstNameEqualsAndDepartmentEqualsAndGenderEquals(String firstName,String department,String gender);
 
-    }
+//    @Query("SELECT avg(s.cgpa) from StudentEntity s")
+//    double averageCgpa();
+}
 

@@ -20,4 +20,5 @@ public class StudentDTO extends BaseDTO{
     private String email;
     private String gender;
     private String department;
+    private double cgpa;
 }

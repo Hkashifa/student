@@ -133,5 +133,10 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+//    @Override
+//    public double averageCgpa() {
+//        return studentRepo.averageCgpa();
+//    }
+
 
 }

@@ -73,5 +73,10 @@ public class StudentController {
     {
        return studentService.SearchBy(firstName,department,gender);
     }
-
+//
+//    @GetMapping("/cgpa")
+//    public double averageCgpa ()
+//    {
+//        return studentService.averageCgpa();
+//    }
 }

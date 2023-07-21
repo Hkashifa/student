@@ -29,7 +29,7 @@ public class StudentEntity extends BaseEntity {
 
     private String gender;
     private String department;
-
+    private double cgpa;
 
 
 
