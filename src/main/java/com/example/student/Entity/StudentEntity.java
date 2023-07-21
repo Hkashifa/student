@@ -27,6 +27,10 @@ public class StudentEntity extends BaseEntity {
     private String contactNumber;
     private String email;
 
+    private String gender;
+    private String department;
+
+
 
 
 

@@ -23,7 +23,7 @@ public interface StudentService {
 
     void deleteStudentById(@PathVariable String id);
 
-
+    List <StudentDTO> SearchBy(String firstName,String department,String gender);
 
 
 }

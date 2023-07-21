@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -86,6 +87,49 @@ public class StudentServiceImpl implements StudentService {
 
     studentRepo.deleteStudentEntityById(id);
 
+
+    }
+
+//    @Override
+    public List<StudentDTO> SearchBy(String firstName, String department, String gender) {
+
+
+
+        if(firstName == null && department== null)
+        {
+            return studentRepo.findStudentEntitiesByGenderEquals(gender)
+                    .stream().map(student -> modelMap.map(student, StudentDTO.class)).collect(Collectors.toList());
+        }
+        else if(department == null && gender == null)
+        {
+            return studentRepo.findStudentEntitiesByFirstNameEquals(firstName)
+                    .stream().map(student -> modelMap.map(student, StudentDTO.class)).collect(Collectors.toList());
+        }
+        else if(gender == null && firstName == null)
+        {
+            return studentRepo.findStudentEntitiesByDepartmentEquals(department)
+                    .stream().map(student -> modelMap.map(student, StudentDTO.class)).collect(Collectors.toList());
+        }
+        else if(firstName == null)
+        {
+            return studentRepo.findStudentEntitiesByDepartmentEqualsAndGenderEquals(department,gender).stream().map(student-> modelMap.map(student, StudentDTO.class))
+                    .collect(Collectors.toList());
+        }
+        else if(department == null)
+        {
+            return studentRepo.findStudentEntitiesByFirstNameEqualsAndGenderEquals(firstName,gender).
+                    stream().map(student -> modelMap.map(student, StudentDTO.class)).collect(Collectors.toList());
+        }
+        else if(gender == null)
+        {
+            return studentRepo.findStudentEntitiesByFirstNameEqualsAndDepartmentEquals(firstName,department)
+                    .stream().map(student -> modelMap.map(student, StudentDTO.class)).collect(Collectors.toList());
+        }
+        else
+        {
+            return studentRepo.findStudentEntitiesByFirstNameEqualsAndDepartmentEqualsAndGenderEquals(firstName,department,gender)
+                    .stream().map(student -> modelMap.map(student,StudentDTO.class)).collect(Collectors.toList());
+        }
 
     }
 

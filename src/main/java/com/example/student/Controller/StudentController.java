@@ -65,5 +65,13 @@ public class StudentController {
 
     }
 
+    @GetMapping("/search")
+    public List<StudentDTO> SearchBy (
+            @RequestParam (required = false)String firstName,
+            @RequestParam (required = false)String department,
+            @RequestParam (required = false)String gender)
+    {
+       return studentService.SearchBy(firstName,department,gender);
+    }
 
 }
